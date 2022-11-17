@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: proxy
+spec:
+  hosts:
+  - "proxy.90data.net"
+  - "proxy"
+  gateways:
+  - istio-sysetm/proxy-gateay
+  - mesh
+  http:
+  - name: redirect
+    match:
+    - uri:
+        prefix: "/backend"
+    redirect:
+      uri: /
+      authority: backend
+      port: 8082
+  - name: defautl
+    route:
+    - destination:
+        host: proxy
+

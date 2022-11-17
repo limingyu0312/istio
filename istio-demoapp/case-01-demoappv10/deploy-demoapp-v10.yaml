@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: demoapp
+  name: demoappv10
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demoapp
+      version: v1.0
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: demoapp
+        version: v1.0
+    spec:
+      containers:
+      - image: ikubernetes/demoapp:v1.0
+        name: demoapp
+        env:
+        - name: PORT
+          value: "8080"
